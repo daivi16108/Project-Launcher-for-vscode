@@ -1,0 +1,270 @@
+{
+  "name": "project-launcher-buttons",
+  "displayName": "Project Launcher",
+  "description": "Launch, stop, restart and health-check workspace tasks from a dedicated VS Code sidebar.",
+  "version": "0.3.0",
+  "publisher": "daivi16108",
+  "license": "Unlicense",
+  "preview": false,
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#111827",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daivi16108/Project-Launcher-for-vscode.git"
+  },
+  "homepage": "https://github.com/daivi16108/Project-Launcher-for-vscode",
+  "bugs": {
+    "url": "https://github.com/daivi16108/Project-Launcher-for-vscode/issues"
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "keywords": [
+    "launcher",
+    "tasks",
+    "task-runner",
+    "sidebar",
+    "output-channel",
+    "status-bar",
+    "workflow",
+    "dev-server"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "extensionKind": [
+    "workspace"
+  ],
+  "files": [
+    "extension.js",
+    "package.json",
+    "README.md",
+    "CHANGELOG.md",
+    "LICENSE",
+    "media/icon.png",
+    "media/activitybar-icon.svg"
+  ],
+  "activationEvents": [
+    "onStartupFinished",
+    "onView:projectLauncher.view.controlPanel",
+    "onView:projectLauncher.view.activity",
+    "onCommand:projectLauncher.start",
+    "onCommand:projectLauncher.stop",
+    "onCommand:projectLauncher.restart",
+    "onCommand:projectLauncher.runHealthcheck",
+    "onCommand:projectLauncher.configure",
+    "onCommand:projectLauncher.quickSetup",
+    "onCommand:projectLauncher.editBinding",
+    "onCommand:projectLauncher.refresh",
+    "onCommand:projectLauncher.showOutput",
+    "onCommand:projectLauncher.clearActivity"
+  ],
+  "main": "./extension.js",
+  "scripts": {
+    "lint": "node --check extension.js",
+    "package:vsix": "npx @vscode/vsce package --no-yarn"
+  },
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "projectLauncher",
+          "title": "Project Launcher",
+          "icon": "media/activitybar-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "projectLauncher": [
+        {
+          "id": "projectLauncher.view.controlPanel",
+          "name": "Control Panel",
+          "contextualTitle": "Project Launcher",
+          "visibility": "visible"
+        },
+        {
+          "id": "projectLauncher.view.activity",
+          "name": "Activity",
+          "contextualTitle": "Project Launcher",
+          "visibility": "visible"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "projectLauncher.start",
+        "title": "Project Launcher: Start",
+        "icon": "$(play)"
+      },
+      {
+        "command": "projectLauncher.stop",
+        "title": "Project Launcher: Stop",
+        "icon": "$(debug-stop)"
+      },
+      {
+        "command": "projectLauncher.restart",
+        "title": "Project Launcher: Restart",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "projectLauncher.runHealthcheck",
+        "title": "Project Launcher: Run Healthcheck",
+        "icon": "$(pulse)"
+      },
+      {
+        "command": "projectLauncher.configure",
+        "title": "Project Launcher: Launcher Setup",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "projectLauncher.quickSetup",
+        "title": "Project Launcher: Quick Setup",
+        "icon": "$(sparkle)"
+      },
+      {
+        "command": "projectLauncher.editBinding",
+        "title": "Project Launcher: Edit Task Binding",
+        "icon": "$(tasklist)"
+      },
+      {
+        "command": "projectLauncher.refresh",
+        "title": "Project Launcher: Refresh",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "projectLauncher.showOutput",
+        "title": "Project Launcher: Show Output",
+        "icon": "$(output)"
+      },
+      {
+        "command": "projectLauncher.clearActivity",
+        "title": "Project Launcher: Clear Activity",
+        "icon": "$(clear-all)"
+      }
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "projectLauncher.start",
+          "when": "view == projectLauncher.view.controlPanel",
+          "group": "navigation@1"
+        },
+        {
+          "command": "projectLauncher.stop",
+          "when": "view == projectLauncher.view.controlPanel",
+          "group": "navigation@2"
+        },
+        {
+          "command": "projectLauncher.restart",
+          "when": "view == projectLauncher.view.controlPanel",
+          "group": "navigation@3"
+        },
+        {
+          "command": "projectLauncher.runHealthcheck",
+          "when": "view == projectLauncher.view.controlPanel",
+          "group": "navigation@4"
+        },
+        {
+          "command": "projectLauncher.refresh",
+          "when": "view == projectLauncher.view.controlPanel",
+          "group": "navigation@5"
+        },
+        {
+          "command": "projectLauncher.configure",
+          "when": "view == projectLauncher.view.controlPanel",
+          "group": "navigation@6"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Project Launcher",
+      "properties": {
+        "projectLauncher.startTaskLabel": {
+          "type": "string",
+          "default": "",
+          "description": "Workspace task label to run when pressing Start."
+        },
+        "projectLauncher.stopTaskLabel": {
+          "type": "string",
+          "default": "",
+          "description": "Workspace task label to run when pressing Stop if no matching running task execution is found."
+        },
+        "projectLauncher.healthTaskLabel": {
+          "type": "string",
+          "default": "",
+          "description": "Optional workspace task label for healthcheck command."
+        },
+        "projectLauncher.showStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show start, stop and restart buttons in the status bar."
+        },
+        "projectLauncher.showHealthButton": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the healthcheck button in the status bar when a health task label is configured."
+        },
+        "projectLauncher.preventDuplicateStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Do not launch the start task again if it is already running."
+        },
+        "projectLauncher.restartDelayMs": {
+          "type": "number",
+          "default": 350,
+          "minimum": 0,
+          "description": "Delay in milliseconds between stop and start when using restart."
+        },
+        "projectLauncher.statusBarAlignment": {
+          "type": "string",
+          "enum": [
+            "left",
+            "right"
+          ],
+          "default": "left",
+          "description": "Which side of the status bar should display launcher buttons."
+        },
+        "projectLauncher.statusBarPriority": {
+          "type": "number",
+          "default": 1000,
+          "description": "Status bar priority for launcher buttons. Larger values move buttons to the left within the chosen alignment group."
+        },
+        "projectLauncher.startText": {
+          "type": "string",
+          "default": "$(play) Start App",
+          "description": "Status bar text for the start button when the start task is idle."
+        },
+        "projectLauncher.runningText": {
+          "type": "string",
+          "default": "$(sync~spin) App Running",
+          "description": "Status bar text for the start button when the start task is running."
+        },
+        "projectLauncher.stopText": {
+          "type": "string",
+          "default": "$(debug-stop) Stop App",
+          "description": "Status bar text for the stop button."
+        },
+        "projectLauncher.restartText": {
+          "type": "string",
+          "default": "$(refresh) Restart App",
+          "description": "Status bar text for the restart button."
+        },
+        "projectLauncher.healthText": {
+          "type": "string",
+          "default": "$(pulse) Health",
+          "description": "Status bar text for the healthcheck button."
+        },
+        "projectLauncher.activityItemLimit": {
+          "type": "number",
+          "default": 50,
+          "minimum": 10,
+          "maximum": 200,
+          "description": "Maximum number of recent activity items shown in the sidebar activity view."
+        }
+      }
+    }
+  }
+}

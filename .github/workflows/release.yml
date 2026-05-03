@@ -1,0 +1,66 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*.*.*'
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: 'Git tag to release, for example v0.3.0'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.inputs.ref || github.ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Verify tag matches package version
+        shell: bash
+        env:
+          RELEASE_REF: ${{ github.event.inputs.ref || github.ref_name }}
+        run: |
+          VERSION=$(node -p "require('./package.json').version")
+          if [[ "$RELEASE_REF" != v* ]]; then
+            echo "Release ref must be a version tag like v0.3.0, got: $RELEASE_REF"
+            exit 1
+          fi
+          TAG="${RELEASE_REF#v}"
+          if [ "$VERSION" != "$TAG" ]; then
+            echo "Tag version $TAG does not match package.json version $VERSION"
+            exit 1
+          fi
+
+      - name: Package VSIX
+        run: npm run package:vsix
+
+      - name: Capture VSIX filename
+        id: vsix
+        shell: bash
+        run: echo "path=$(ls -1 *.vsix | head -n 1)" >> "$GITHUB_OUTPUT"
+
+      - name: Create GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ${{ steps.vsix.outputs.path }}
+          generate_release_notes: true
+
+      - name: Publish to VS Code Marketplace
+        if: ${{ secrets.VSCE_PAT != '' }}
+        run: npx @vscode/vsce publish -p "$VSCE_PAT"
+        env:
+          VSCE_PAT: ${{ secrets.VSCE_PAT }}
