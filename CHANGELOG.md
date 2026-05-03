@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.1
+
+- changed the Marketplace display name to `Project Launcher Buttons` to avoid a naming collision during first publication
+- hardened the release workflow for manual tag dispatches and Marketplace publishing
+
 ## 0.3.0
 
 - replaced the old linear task-label setup with a friendlier launcher setup menu

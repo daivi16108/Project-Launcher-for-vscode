@@ -1,6 +1,6 @@
-# Project Launcher
+# Project Launcher Buttons
 
-Project Launcher is a lightweight VS Code extension for teams and solo developers who want one-click control over existing workspace tasks.
+Project Launcher Buttons is a lightweight VS Code extension for teams and solo developers who want one-click control over existing workspace tasks.
 
 ![Project Launcher icon](media/icon.png)
 
@@ -38,7 +38,7 @@ If your project already has start, stop, or healthcheck tasks, this extension tu
 
 The packaged VSIX can be installed via `Extensions: Install from VSIX...`.
 
-For Marketplace publication, this repository is configured to publish under the `daivi16108` publisher.
+For Marketplace publication, this repository is configured to publish under the `daivi16108` publisher as `Project Launcher Buttons`.
 
 ## Recommended Workspace Configuration
 
