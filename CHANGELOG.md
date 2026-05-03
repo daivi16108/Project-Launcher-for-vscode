@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.3.2
+
+- published the refreshed Marketplace README and short description
+- kept release automation aligned for the next tagged release
+
 ## 0.3.1
 
 - changed the Marketplace display name to `Project Launcher Buttons` to avoid a naming collision during first publication

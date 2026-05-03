@@ -7,7 +7,7 @@ This repository is already structured as the standalone root for the extension.
 1. Create or confirm the VS Code Marketplace publisher `daivi16108`.
 2. Keep `publisher` in `package.json` aligned with that Marketplace publisher.
 3. Create a VS Code Marketplace personal access token and store it as the `VSCE_PAT` repository secret.
-4. Push a semantic version tag such as `v0.3.1`.
+4. Push a semantic version tag such as `v0.3.2`.
 
 ## Included Automation
 
@@ -17,10 +17,10 @@ This repository is already structured as the standalone root for the extension.
 
 ## Recommended First Release Checklist
 
-1. Confirm the `version` field in `package.json` matches the first public tag. The current candidate is `v0.3.1`.
+1. Confirm the `version` field in `package.json` matches the next public tag. The current candidate is `v0.3.2`.
 2. Confirm `README.md`, `CHANGELOG.md`, icon, and license are final.
 3. Run `npm run lint` and `npm run package:vsix` locally once before tagging.
-4. Push the tag with `git tag v0.3.1` and `git push origin v0.3.1`.
+4. Push the tag with `git tag v0.3.2` and `git push origin v0.3.2`.
 
 ## Product Planning
 
