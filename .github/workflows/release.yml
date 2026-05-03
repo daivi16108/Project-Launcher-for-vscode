@@ -34,14 +34,20 @@ jobs:
         with:
           node-version: 20
 
-      - name: Verify tag matches package version
+      - name: Resolve release ref
+        id: release_ref
         shell: bash
         run: |
           if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
-            RELEASE_REF="${{ inputs.ref }}"
+            echo "value=${{ inputs.ref }}" >> "$GITHUB_OUTPUT"
           else
-            RELEASE_REF="${GITHUB_REF_NAME}"
+            echo "value=${GITHUB_REF_NAME}" >> "$GITHUB_OUTPUT"
           fi
+
+      - name: Verify tag matches package version
+        shell: bash
+        run: |
+          RELEASE_REF="${{ steps.release_ref.outputs.value }}"
 
           VERSION=$(node -p "require('./package.json').version")
           if [[ "$RELEASE_REF" != v* ]]; then
@@ -65,6 +71,7 @@ jobs:
       - name: Create GitHub Release
         uses: softprops/action-gh-release@v2
         with:
+          tag_name: ${{ steps.release_ref.outputs.value }}
           files: ${{ steps.vsix.outputs.path }}
           generate_release_notes: true
 
