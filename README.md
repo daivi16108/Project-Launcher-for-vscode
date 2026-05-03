@@ -1,12 +1,30 @@
 # Project Launcher Buttons
 
-Project Launcher Buttons is a lightweight VS Code extension for teams and solo developers who want one-click control over existing workspace tasks.
+Project Launcher Buttons turns existing VS Code tasks into one-click controls for local development workflows.
 
 ![Project Launcher icon](media/icon.png)
 
-It adds a dedicated sidebar control panel, an activity log, an output channel, and status bar buttons by reusing normal workspace tasks from `.vscode/tasks.json`.
+Instead of maintaining another process manager, you can reuse the tasks you already have in `.vscode/tasks.json` and expose them as Start, Stop, Restart, and Health actions in the sidebar and status bar.
 
-If your project already has start, stop, or healthcheck tasks, this extension turns them into a small control center instead of making you maintain another process manager.
+## Why Use It
+
+- Reuse existing tasks instead of introducing another dev workflow tool
+- Start and stop local apps from one place in the VS Code UI
+- Keep recent activity and task output visible when something fails
+- Set up a workspace in a minute with guided binding or quick detection
+
+## Good Fit For
+
+- full-stack repositories with separate frontend and backend tasks
+- local dev environments with start, stop, and smoke-check commands
+- teams that want a lightweight shared workflow without custom scripts
+
+## Quick Start
+
+1. Open a workspace that already defines tasks in `.vscode/tasks.json`.
+2. Run `Project Launcher: Quick Setup` or `Project Launcher: Launcher Setup`.
+3. Bind your start, stop, and optional healthcheck tasks.
+4. Use the sidebar or status bar controls to run the workflow.
 
 ## Features
 
@@ -38,7 +56,7 @@ If your project already has start, stop, or healthcheck tasks, this extension tu
 
 The packaged VSIX can be installed via `Extensions: Install from VSIX...`.
 
-For Marketplace publication, this repository is configured to publish under the `daivi16108` publisher as `Project Launcher Buttons`.
+Marketplace publisher: `daivi16108`
 
 ## Recommended Workspace Configuration
 
