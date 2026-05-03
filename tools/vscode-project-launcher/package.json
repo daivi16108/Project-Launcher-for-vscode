@@ -1,0 +1,165 @@
+{
+  "name": "vscode-project-launcher",
+  "displayName": "Project Launcher",
+  "description": "Lightweight one-click task control panel for VS Code teams and solo developers.",
+  "version": "0.1.0",
+  "publisher": "project-launcher",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/daivi16108/Project-Launcher-for-vscode.git"
+  },
+  "engines": {
+    "vscode": "^1.75.0"
+  },
+  "categories": ["Other"],
+  "keywords": ["tasks", "launcher", "sidebar", "control panel", "devops"],
+  "activationEvents": ["onStartupFinished"],
+  "main": "./extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "projectLauncher.start",
+        "title": "Project Launcher: Start",
+        "icon": "$(play)"
+      },
+      {
+        "command": "projectLauncher.stop",
+        "title": "Project Launcher: Stop",
+        "icon": "$(primitive-square)"
+      },
+      {
+        "command": "projectLauncher.restart",
+        "title": "Project Launcher: Restart",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "projectLauncher.healthcheck",
+        "title": "Project Launcher: Run Healthcheck",
+        "icon": "$(heart)"
+      },
+      {
+        "command": "projectLauncher.setup",
+        "title": "Project Launcher: Launcher Setup",
+        "icon": "$(gear)"
+      },
+      {
+        "command": "projectLauncher.quickSetup",
+        "title": "Project Launcher: Quick Setup",
+        "icon": "$(zap)"
+      },
+      {
+        "command": "projectLauncher.refresh",
+        "title": "Project Launcher: Refresh",
+        "icon": "$(sync)"
+      },
+      {
+        "command": "projectLauncher.showOutput",
+        "title": "Project Launcher: Show Output",
+        "icon": "$(output)"
+      },
+      {
+        "command": "projectLauncher.clearActivity",
+        "title": "Project Launcher: Clear Activity",
+        "icon": "$(clear-all)"
+      },
+      {
+        "command": "projectLauncher.configureLabels",
+        "title": "Project Launcher: Configure Task Labels",
+        "icon": "$(tag)"
+      }
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "projectLauncherContainer",
+          "title": "Project Launcher",
+          "icon": "$(rocket)"
+        }
+      ]
+    },
+    "views": {
+      "projectLauncherContainer": [
+        {
+          "id": "projectLauncherControlPanel",
+          "name": "Control Panel"
+        },
+        {
+          "id": "projectLauncherActivity",
+          "name": "Activity"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "projectLauncher.refresh",
+          "when": "view == projectLauncherControlPanel",
+          "group": "navigation"
+        },
+        {
+          "command": "projectLauncher.setup",
+          "when": "view == projectLauncherControlPanel",
+          "group": "navigation"
+        },
+        {
+          "command": "projectLauncher.clearActivity",
+          "when": "view == projectLauncherActivity",
+          "group": "navigation"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Project Launcher",
+      "properties": {
+        "projectLauncher.startTaskLabel": {
+          "type": "string",
+          "default": "",
+          "description": "Task label executed by the Start command."
+        },
+        "projectLauncher.stopTaskLabel": {
+          "type": "string",
+          "default": "",
+          "description": "Task label executed by Stop when there is no running execution to terminate directly."
+        },
+        "projectLauncher.healthTaskLabel": {
+          "type": "string",
+          "default": "",
+          "description": "Optional task label for the Health command/button."
+        },
+        "projectLauncher.showStatusBar": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show or hide all launcher buttons in the status bar."
+        },
+        "projectLauncher.showHealthButton": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show the Health button in the status bar when a health task is configured."
+        },
+        "projectLauncher.preventDuplicateStart": {
+          "type": "boolean",
+          "default": true,
+          "description": "Avoid launching the same start task twice."
+        },
+        "projectLauncher.restartDelayMs": {
+          "type": "number",
+          "default": 1000,
+          "description": "Delay in milliseconds between stop and start during restart."
+        },
+        "projectLauncher.activityItemLimit": {
+          "type": "number",
+          "default": 50,
+          "description": "Maximum number of recent entries kept in the Activity sidebar view."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "package": "npx @vscode/vsce package",
+    "lint": "node --check extension.js"
+  },
+  "devDependencies": {
+    "@vscode/vsce": "^2.24.0"
+  }
+}
